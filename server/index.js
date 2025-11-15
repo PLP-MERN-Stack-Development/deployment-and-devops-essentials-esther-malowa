@@ -1,6 +1,8 @@
 
 require("./instrument.js");
 
+const PORT = process.env.PORT || 5000;
+
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -12,6 +14,11 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(cors());
+
+app.get("/health", (req, res) => {
+  res.json({ status: "ok" });
+});
+
 
 
 app.get("/", (req, res) => {
@@ -40,6 +47,6 @@ mongoose
   .catch((err) => console.log("Mongo Error:", err));
 
 // Start server
-app.listen(process.env.PORT, () => {
-  console.log(`Server running on port ${process.env.PORT}`);
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
